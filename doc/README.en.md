@@ -51,7 +51,7 @@ proxy_response_format=>[original|custom]
 
 To test the received sample-data header, you need to update the `TODO` of `createPallyConCustomdata` method.
 
-[PHP](src/service/GateWayService.php)  
+[PHP](../src/Service/ProxyService.php)  
 
 ***
 
