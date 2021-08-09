@@ -11,9 +11,9 @@
 - curl
 - openssl 
 
-### Configuring Application.properties
-
-You need to configure the below values to run the sample project.
+### Configuring Config.php
+- [Config.php](../src/Config/Config.php)
+- You need to configure the below values to run the sample project.
 
 
 - siteId=> {PallyCon Site Key}
@@ -51,10 +51,10 @@ proxy_response_format=>[original|custom]
 
 To test the received sample-data header, you need to update the `TODO` of `createPallyConCustomdata` method.
 
-[PHP](src/service/GateWayService.php)  
+[PHP](../src/Service/ProxyService.php)  
 
 ***
 
 https://pallycon.com | obiz@inka.co.kr
 
-Copyright 2019 INKA Entworks. All Rights Reserved.
+Copyright 2021 INKA Entworks. All Rights Reserved.

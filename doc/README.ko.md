@@ -11,9 +11,9 @@
 - curl
 - openssl 
 
-### Application.properties 세팅
-
-샘플 프로젝트를 실행하려면 아래와 같은 값들을 설정해야 합니다.
+### Config 세팅
+- [Config.php](../src/Config/Config.php)
+- 샘플 프로젝트를 실행하려면 아래와 같은 값들을 설정해야 합니다.
 
 - siteId=> {PallyCon Site Key}
 - siteKey=> {PallyCon Access Key}
@@ -55,7 +55,7 @@ proxy_response_format=>[original|custom]
 
 전달 받은 sample-data header를 이용한 테스트를 위해서는 `createPallyConCustomdata` 메소드의 `TODO` 사항들을 업데이트해야 합니다.
 
-[PHP](src/service/GateWayService.php)  
+[PHP](../src/Service/ProxyService.php)  
 
 ***
 
