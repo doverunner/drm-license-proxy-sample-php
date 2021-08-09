@@ -11,9 +11,9 @@
 - curl
 - openssl 
 
-### Application.properties 세팅
-
-샘플 프로젝트를 실행하려면 아래와 같은 값들을 설정해야 합니다.
+### Config 세팅
+- [Config.php](../src/Config/Config.php)
+- 샘플 프로젝트를 실행하려면 아래와 같은 값들을 설정해야 합니다.
 
 - siteId=> {PallyCon Site Key}
 - siteKey=> {PallyCon Access Key}

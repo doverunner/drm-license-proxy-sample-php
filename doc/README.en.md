@@ -11,9 +11,9 @@
 - curl
 - openssl 
 
-### Configuring Application.properties
-
-You need to configure the below values to run the sample project.
+### Configuring Config.php
+- [Config.php](../src/Config/Config.php)
+- You need to configure the below values to run the sample project.
 
 
 - siteId=> {PallyCon Site Key}
