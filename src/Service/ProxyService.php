@@ -17,7 +17,9 @@ use PallyConProxy\Exception\PallyConProxyException;
 class ProxyService{
 
     const RESPONSE_FORMAT_ORIGINAL = "ORIGINAL";
+    const RESPONSE_FORMAT_JSON = "JSON";
     const RESPONSE_FORMAT_CUSTOM = "CUSTOM";
+
     private $_config;
 
 
@@ -183,7 +185,7 @@ class ProxyService{
         $_tokenResponseFormat = strtoupper($util->nvl($this->_config['token_res_format'], self::RESPONSE_FORMAT_ORIGINAL));
         $_proxyResponseFormat = strtoupper($util->nvl($this->_config['proxy_response_format'], self::RESPONSE_FORMAT_ORIGINAL));
 
-        if(self::RESPONSE_FORMAT_CUSTOM == $_tokenResponseFormat){
+        if(self::RESPONSE_FORMAT_JSON == $_tokenResponseFormat){
             $_responseJson = json_decode($_licenseResponse);
 
             //TODO 4. If you want to control ResponseData, do it here.
@@ -197,6 +199,7 @@ class ProxyService{
             if(self::RESPONSE_FORMAT_ORIGINAL == $_proxyResponseFormat){
                 $_responseData = $this->convertResponseData($_licenseResponse, $_responseJson, $_drmType);
             }
+
         }
 
         return $_responseData;
