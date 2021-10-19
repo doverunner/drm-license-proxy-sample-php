@@ -26,17 +26,17 @@
 You can set the type of license response that the PallyCon license server will send to the proxy server and the type of response that the proxy server will send to the client as follows.
 
 ```
-token_res_format=>[original|custom]
-proxy_response_format=>[original|custom]
+token_res_format=>[original|json]
+proxy_response_format=>[original|json]
 ```
 
 - pallycon.token.response.format: Set the license response type of PallyCon license server
   - original: basic license information only (same as the response of v1.0 spec)
-  - custom: responds in JSON type with additional information such as Device ID
+  - json: responds in JSON type with additional information such as Device ID
 
 - pallycon.response.format: Set the type of license response to be sent from the proxy server to the client
   - original: basic license information only (same as the response of v1.0 spec)
-  - custom: response in JSON type with additional information. In order to play DRM content with the response, a function to parse the response additionally must be implemented on the client side.
+  - json: response in JSON type with additional information. In order to play DRM content with the response, a function to parse the response additionally must be implemented on the client side.
 
 ## Default configuration of this sample
 
