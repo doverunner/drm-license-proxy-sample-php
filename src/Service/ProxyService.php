@@ -28,15 +28,20 @@ class ProxyService{
     }
 
 
-    public function getLicenseData($_sampleData, $_requestBody, $_drmType){
+    public function getLicenseData($_mode, $_sampleData, $_requestBody, $_drmType){
         $_responseData = null;
 
         // Token creation
         $_pallyconCustomData = $this->createPallyConCustomData($_sampleData, $_drmType);
 
 
+        $_modeParam = "";
+        if ($_mode != null && $_mode == "getserverinfo" ){
+            $_modeParam = "?mode=getserverinfo";
+        }
+
         // license server
-        $_licenseResponse = $this->callLicenseServer($this->_config['license_url'], $_requestBody, $_pallyconCustomData, $_drmType);
+        $_licenseResponse = $this->callLicenseServer($_mode, $this->_config['license_url'] + $_modeParam, $_requestBody, $_pallyconCustomData, $_drmType);
 
 
         // response data
@@ -78,6 +83,8 @@ class ProxyService{
             $pallyConTokenClient->fairplay();
         }else if ( strtoupper($_drmType) == $drmType::WIDEVINE ) {
             $pallyConTokenClient->widevine();
+        }else if ( strtoupper($_drmType) == $drmType::NCG ) {
+            $pallyConTokenClient->ncg();
         }else {
             $pallyConTokenClient->playready();
         }
@@ -121,6 +128,7 @@ class ProxyService{
     /**
      * Connection to License Server
      *
+     * @param $_mode
      * @param $_url
      * @param $_requestBody
      * @param $_pallyconCustomData
@@ -128,7 +136,7 @@ class ProxyService{
      * @return string
      * @throws PallyConProxyException
      */
-    private function callLicenseServer($_url, $_requestBody, $_pallyconCustomData, $_drmType){
+    private function callLicenseServer($_mode, $_url, $_requestBody, $_pallyconCustomData, $_drmType){
 
         $_handle = curl_init();
         $_headerData = array();
@@ -138,10 +146,15 @@ class ProxyService{
             curl_setopt($_handle, CURLOPT_SSL_VERIFYPEER, false);
             curl_setopt($_handle, CURLOPT_FOLLOWLOCATION, true);
             curl_setopt($_handle, CURLOPT_AUTOREFERER, true);
-            curl_setopt($_handle, CURLOPT_POST, true);
             curl_setopt($_handle, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($_handle, CURLOPT_FRESH_CONNECT, true);
             curl_setopt($_handle, CURLOPT_CONNECTTIMEOUT, 5);
+
+            if ($_mode != null && $_mode == "getserverinfo" ){
+                curl_setopt($_handle, CURLOPT_POST, false);
+            }else {
+                curl_setopt($_handle, CURLOPT_POST, true);
+            }
 
 
 
@@ -150,13 +163,19 @@ class ProxyService{
                 array_push($_headerData, "Content-Type: application/x-www-form-urlencoded");
                 $_requestBody = "spc=". implode(array_map("chr", $_requestBody));
 
+            }else if ( strtoupper($_drmType) == $drmType::NCG ){
+                array_push($_headerData, "Content-Type: application/x-www-form-urlencoded");
+
             }else{
                 array_push($_headerData, "Content-Type: application/octet-stream");
             }
             array_push($_headerData, "pallycon-customdata-v2: ".$_pallyconCustomData);
 
             curl_setopt($_handle, CURLOPT_HTTPHEADER, $_headerData);
-            curl_setopt($_handle, CURLOPT_POSTFIELDS, $_requestBody);
+
+            if ( $_requestBody != null ) {
+                curl_setopt($_handle, CURLOPT_POSTFIELDS, $_requestBody);
+            }
 
 
             $_responseData = curl_exec($_handle);
