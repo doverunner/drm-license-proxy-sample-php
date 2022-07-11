@@ -40,6 +40,10 @@ class PallyConDrmTokenClient implements PallyConDrmToken {
         $this->_drmType = "FairPlay";
         return $this;
     }
+    public function ncg(){
+        $this->_drmType = "NCG";
+        return $this;
+    }
     public function policy(PolicyRequest $policyRequest){
         $this->_policy = $policyRequest;
         return $this;
