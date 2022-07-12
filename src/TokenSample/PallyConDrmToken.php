@@ -7,6 +7,7 @@ interface PallyConDrmToken
     public function playready();
     public function widevine();
     public function fairplay();
+    public function ncg();
     public function policy(PolicyRequest $token);
     public function siteId($siteId);
     public function userId($userId);

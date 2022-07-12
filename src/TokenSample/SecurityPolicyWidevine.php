@@ -15,7 +15,7 @@ class SecurityPolicyWidevine
     public $_overrideDeviceRevocation;
 
     public function __construct($securityLevel=1, $requiredHdcpVersion=null
-        , $requiredCgmsFlags=null, $disableAnalogOutput=null, $hdcpSrmRule=null, $overrideDeviceRevocation=true)
+        , $requiredCgmsFlags=null, $disableAnalogOutput=null, $hdcpSrmRule=null, $overrideDeviceRevocation=false)
     {
         if(is_numeric($securityLevel)){
             $this->_securityLevel = $securityLevel;
