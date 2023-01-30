@@ -5,11 +5,11 @@
 
 - 재생 테스트용 플레이어 웹페이지가 로컬호스트(http://localhost)가 아닌 경우, 해당 URL에 HTTPS 설정이 필수입니다. (테스트용 웹 서버에 SSL/TLS 적용 필요)
 - PHP Version 7.3 or later.
-- TokenSample 폴더는 토큰생성 PHP 샘플 소스 입니다(drm-token-sample-php). 
+- TokenSample 폴더는 토큰생성 PHP 샘플 소스 입니다(drm-token-sample-php).
 
 ##### PHP.ini Dynamic Extensions
 - curl
-- openssl 
+- openssl
 
 ### Config 세팅
 - [Config.php](../src/Config/Config.php)
@@ -45,13 +45,13 @@ proxy_response_format=>[original|json]
 2. NCG는 최초 라이센스 인증시 `mode=getserverinfo`를 호출하여 기기별 인증서를 다운받은 후 라이센스 요청을 한다.
 
 
-    
+
 ## 샘플 프로젝트 기본 설정
 
-1. url : http://localhost/{base_path}/proxy.php?drmType={drmType} 
-    - drmType : fairplay, playready, widevine, ncg  
-2. cid : test  
-3. userId : proxySample  
+1. url : http://localhost/{base_path}/proxy.php?drmType={drmType}
+    - drmType : fairplay, playready, widevine, ncg
+2. cid : test
+3. userId : proxySample
 4. license Rule : 라이선스 만료 시간 3600초
 
 
@@ -59,8 +59,8 @@ proxy_response_format=>[original|json]
 
 1. 테스트를 위해서는 기본 설정 완료 후 `createPallyConCustomdata` 메소드의 `TODO` 사항들을 업데이트해야 합니다.
 
-   - [PHP](../src/Service/ProxyService.php)
-   - [Config](../src/Config/Config.php)
+    - [PHP](../src/Service/ProxyService.php)
+    - [Config](../src/Config/Config.php)
 
 2. Client( SDK, Browser ) 와 Proxy Server가 통신 할때 `user_id`, `content_id`를 Proxy Server와 통신이 필요 할 경우 당사에서 사용하고 있는 암호화 방식을 적용하여 통신하여야 한다.
     - 회사 마다 암호화 방식이 다르므로 별도로 가이드를 제공하지는 않습니다.
@@ -68,6 +68,18 @@ proxy_response_format=>[original|json]
 
 3. 사용하고자 하는 Policy를 `new PallyConDrmTokenClient()` 를 사용하여 지정한다.
 
+
+4. 디바이스 정보 Header `pallycon-client-meta` 를 통해 Client의 정보를 받을수 있다. ( Pallycon SDK에서는 기본으로 보내줌. )
+- Original Value String : `ewoJImRldmljZV9pbmZvIjogewoJCSJkZXZpY2VfbW9kZWwiOiAiaVBob25lIFNFIChpUGhvbmU4LDQpIiwKCQkib3NfdmVyc2lvbiI6IjE1LjcuMiIKCX0KfQ==`
+- Base64 Decoding :
+```JSON
+{
+    "device_info": {
+        "device_model": "iPhone SE (iPhone8,4)",
+        "os_version":"15.7.2"
+    }
+}
+```
 
 ***
 
