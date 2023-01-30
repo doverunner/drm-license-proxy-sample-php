@@ -5,11 +5,11 @@
 
 - If you test the sample player player page online(other than localhost), the page URL should be HTTPS. (SSL/TLS is required)
 - PHP Version 7.3 or later.
-- The TokenSample folder is a token creation PHP sample source(drm-token-sample-php). 
+- The TokenSample folder is a token creation PHP sample source(drm-token-sample-php).
 
 ##### PHP.ini Dynamic Extensions
 - curl
-- openssl 
+- openssl
 
 ### Configuring Config.php
 - [Config.php](../src/Config/Config.php)
@@ -31,12 +31,12 @@ proxy_response_format=>[original|json]
 ```
 
 - pallycon.token.response.format: Set the license response type of PallyCon license server
-  - original: basic license information only (same as the response of v1.0 spec)
-  - json: responds in JSON type with additional information such as Device ID
+    - original: basic license information only (same as the response of v1.0 spec)
+    - json: responds in JSON type with additional information such as Device ID
 
 - pallycon.response.format: Set the type of license response to be sent from the proxy server to the client
-  - original: basic license information only (same as the response of v1.0 spec)
-  - json: response in JSON type with additional information. In order to play DRM content with the response, a function to parse the response additionally must be implemented on the client side.
+    - original: basic license information only (same as the response of v1.0 spec)
+    - json: response in JSON type with additional information. In order to play DRM content with the response, a function to parse the response additionally must be implemented on the client side.
 
 
 ### Notes
@@ -47,18 +47,18 @@ proxy_response_format=>[original|json]
 
 ## Default configuration of this sample
 
-1. url : http://localhost/{base_path}/proxy.php?drmType={drmType} 
-   - drmType : fairplay, playready, widevine, ncg  
-2. cid : test  
-3. userId : proxySample  
+1. url : http://localhost/{base_path}/proxy.php?drmType={drmType}
+    - drmType : fairplay, playready, widevine, ncg
+2. cid : test
+3. userId : proxySample
 4. license Rule : license duration is 3600 seconds
 
 ## TODO
 
 1. For testing, you need to update the `TODO` items in the `createPallyConCustomdata` method.
 
-   - [PHP](../src/Service/ProxyService.php)
-   - [Config](../src/Config/Config.php)
+    - [PHP](../src/Service/ProxyService.php)
+    - [Config](../src/Config/Config.php)
 
 
 2. When the client (SDK, Browser) and proxy server connection, if `user_id` and `content_id` need to connection with the proxy server, the encryption method used by the company shall be applied and communicated.
@@ -68,7 +68,17 @@ proxy_response_format=>[original|json]
 3. Specify the policy to be used using `new PallyConDrmTokenClient()`
 
 
-
+4. The device information header `pallycon-client-meta` allows you to receive information from the client. ( Pallycon SDK sends it by default. )
+- Original Value String : `ewoJImRldmljZV9pbmZvIjogewoJCSJkZXZpY2VfbW9kZWwiOiAiaVBob25lIFNFIChpUGhvbmU4LDQpIiwKCQkib3NfdmVyc2lvbiI6IjE1LjcuMiIKCX0KfQ==`
+- Base64 Decoding :
+```JSON
+{
+    "device_info": {
+        "device_model": "iPhone SE (iPhone8,4)",
+        "os_version":"15.7.2"
+    }
+}
+```
 
 ***
 

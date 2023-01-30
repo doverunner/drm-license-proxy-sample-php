@@ -14,8 +14,9 @@ spl_autoload_register(function ($className) {
 
     foreach($dirs as $dir) {
 
-        $base_path = __DIR__. "".DIRECTORY_SEPARATOR;
+        $base_path = __DIR__."".DIRECTORY_SEPARATOR;
         $class_path =  $base_path . $className . '.php';
+        $class_path = str_replace("\\", "/", $class_path);
 
         if ( $dir == "TokenSample/" ){   // TokenSample Path
             $class_path = str_replace(DIRECTORY_SEPARATOR ."Common". DIRECTORY_SEPARATOR."PallyCon".DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR."TokenSample".DIRECTORY_SEPARATOR, $class_path);
