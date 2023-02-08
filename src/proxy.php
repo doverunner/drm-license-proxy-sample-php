@@ -15,14 +15,14 @@ $proxyService = new ProxyService();
 
 // get Header
 $_headers = apache_request_headers();
-$_sampleData = $_headers["sample-data"];
 $_contentType = $_headers["Content-Type"];
+$_pallyconClientMeta = @$_headers["pallycon-client-meta"];
 
 // get Parameter
 $_requestBody = file_get_contents("php://input");   // get raw data
 $_drmType = $_REQUEST["drmType"];
 $_spc = $_POST["spc"];
-$_mode = $_REQUEST["mode"];
+$_mode = @$_REQUEST["mode"];
 
 // FairPlay
 if ( strtoupper($_drmType) == $drmType::FAIRPLAY ) {
@@ -30,7 +30,7 @@ if ( strtoupper($_drmType) == $drmType::FAIRPLAY ) {
 }
 
 // get License data
-$_responseData = $proxyService->getLicenseData($_mode, $_sampleData, $_requestBody, $_drmType);
+$_responseData = $proxyService->getLicenseData($_mode, $_pallyconClientMeta, $_requestBody, $_drmType);
 
 print_r($_responseData);
 
