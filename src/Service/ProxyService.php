@@ -28,14 +28,14 @@ class ProxyService{
     }
 
 
-    public function getLicenseData($_mode, $_sampleData, $_requestBody, $_drmType){
+    public function getLicenseData($_mode, $_pallyconClientMeta, $_requestBody, $_drmType){
         $_responseData = null;
 
         // Token creation
-        $_pallyconCustomData = $this->createPallyConCustomData($_sampleData, $_drmType);
+        $_pallyconCustomData = $this->createPallyConCustomData($_drmType);
 
         // license server
-        $_licenseResponse = $this->callLicenseServer($_mode, $this->_config['license_url'], $_requestBody, $_pallyconCustomData, $_drmType);
+        $_licenseResponse = $this->callLicenseServer($_mode, $this->_config['license_url'], $_requestBody, $_pallyconCustomData, $_drmType, $_pallyconClientMeta);
 
         // response data
         $_responseData = $this->checkResponseData($_licenseResponse, $_drmType);
@@ -47,12 +47,11 @@ class ProxyService{
     /**
      * Token creation
      *
-     * @param $_sampleData
      * @param $_drmType
      * @return string
      * @throws \PallyCon\Exception\PallyConTokenException
      */
-    private function createPallyConCustomData($_sampleData, $_drmType){
+    private function createPallyConCustomData($_drmType){
         $_siteKey = $this->_config['siteKey'];
         $_accessKey = $this->_config['accessKey'];
         $_siteId = $this->_config['siteId'];
@@ -129,7 +128,7 @@ class ProxyService{
      * @return string
      * @throws PallyConProxyException
      */
-    private function callLicenseServer($_mode, $_url, $_requestBody, $_pallyconCustomData, $_drmType){
+    private function callLicenseServer($_mode, $_url, $_requestBody, $_pallyconCustomData, $_drmType, $_pallyconClientMeta){
 
         $_handle = curl_init();
         $_headerData = array();
@@ -170,6 +169,10 @@ class ProxyService{
 
             if ( $_pallyconCustomData != null && $_pallyconCustomData != "" ) {
                 array_push($_headerData, "pallycon-customdata-v2: " . $_pallyconCustomData);
+            }
+
+            if ( $_pallyconClientMeta != null && $_pallyconClientMeta != "" ) {
+                array_push($_headerData, "pallycon-client-meta: " . $_pallyconClientMeta);
             }
 
             curl_setopt($_handle, CURLOPT_HTTPHEADER, $_headerData);
