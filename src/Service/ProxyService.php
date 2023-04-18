@@ -158,7 +158,6 @@ class ProxyService{
             $drmType = new DrmType();
             if ( strtoupper($_drmType) == $drmType::FAIRPLAY ){
                 array_push($_headerData, "Content-Type: application/x-www-form-urlencoded");
-                $_requestBody = "spc=". implode(array_map("chr", $_requestBody));
 
             }else if ( strtoupper($_drmType) == $drmType::NCG ){
                 array_push($_headerData, "Content-Type: application/x-www-form-urlencoded");

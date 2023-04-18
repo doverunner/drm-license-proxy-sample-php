@@ -21,13 +21,7 @@ $_pallyconClientMeta = @$_headers["pallycon-client-meta"];
 // get Parameter
 $_requestBody = file_get_contents("php://input");   // get raw data
 $_drmType = $_REQUEST["drmType"];
-$_spc = $_POST["spc"];
 $_mode = @$_REQUEST["mode"];
-
-// FairPlay
-if ( strtoupper($_drmType) == $drmType::FAIRPLAY ) {
-    $_requestBody = $util->getBytes($_spc);
-}
 
 // get License data
 $_responseData = $proxyService->getLicenseData($_mode, $_pallyconClientMeta, $_requestBody, $_drmType);
