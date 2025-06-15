@@ -1,9 +1,9 @@
 <?php
 
-namespace PallyCon;
+namespace Doverunner;
 
 
-use PallyCon\Exception\PallyConTokenException;
+use Doverunner\Exception\DoverunnerTokenException;
 
 class PlaybackPolicyRequest {
     public $_limit;
@@ -13,51 +13,76 @@ class PlaybackPolicyRequest {
     public $_rentalDuration;
     public $_playbackDuration;
     public $_allowedTrackTypes;
+    public $_maxStreamPerUser;
+    public $_renewalDuration;
 
     /**
      * PlaybackPolicyRequest constructor.
      * @param bool $persistent
      * @param int $licenseDuration
      * @param string $expireDate
-     * @param $rentalDuration
-     * @param $playbackDuration
-     * @throws PallyConTokenException
+     * @param int $rentalDuration
+     * @param int $playbackDuration
+     * @param $maxStreamPerUser
+     * @param $renewalDuration
+     * @throws DoverunnerTokenException
      */
-    public function __construct($persistent=false, $licenseDuration=0, $expireDate= "", $rentalDuration=0, $playbackDuration=0)
+    public function __construct($persistent=false, $licenseDuration=0, $expireDate= "", int $rentalDuration=0, int $playbackDuration=0, $maxStreamPerUser="", $renewalDuration=0, $allowedTrackTypes="ALL")
     {
         if(!is_null($persistent)) {
             if(is_bool($persistent)){
                 $this->_persistent = $persistent;
             }else{
-                throw new PallyConTokenException(1009);
+                throw new DoverunnerTokenException(1009);
             }
         }
-        if(!empty($licenseDuration)) {
+        if(!is_null($licenseDuration)) {
             if(is_numeric($licenseDuration)){
                 $this->_licenseDuration = $licenseDuration;
             }else{
-                throw new PallyConTokenException(1010);
+                throw new DoverunnerTokenException(1010);
             }
         }
         if(!empty($expireDate)) {
-            if(preg_match('/[0-9]{4}-[0,1][0-9]-[0-5][0-9]T[0-2][0-3]:[0-5][0-9]:[0-5][0-9]Z/', $expireDate)){
+            if(preg_match('/[0-9]{4}-[0,1][0-9]-[0-5][0-9]T[0-2][0-9]:[0-5][0-9]:[0-5][0-9]Z/', $expireDate)){
                 $this->_expireDate = $expireDate;
             }else{
-                throw new PallyConTokenException(1011);
+                throw new DoverunnerTokenException(1011);
             }
         }
-        if(!empty($rentalDuration)) {
+        if(!is_null($rentalDuration)) {
             if(is_numeric($rentalDuration)){
                 $this->_rentalDuration = $rentalDuration;
             }else{
-                throw new PallyConTokenException(1049);
+                throw new DoverunnerTokenException(1017);
             }
         }
-        if(!empty($playbackDuration)) {
+        if(!is_null($playbackDuration)) {
             if(is_numeric($playbackDuration)){
                 $this->_playbackDuration = $playbackDuration;
             }else{
-                throw new PallyConTokenException(1050);
+                throw new DoverunnerTokenException(1016);
+            }
+        }
+        if(!empty($allowedTrackTypes)) {
+            if(is_string($allowedTrackTypes)){
+                $this->_allowedTrackTypes = $allowedTrackTypes;
+            }else{
+                throw new DoverunnerTokenException(1013);
+            }
+        }
+        if(!empty($maxStreamPerUser)) {
+            if(is_numeric($maxStreamPerUser)){
+                $this->_maxStreamPerUser = $maxStreamPerUser;
+            }else{
+                throw new DoverunnerTokenException(1014);
+            }
+        }
+        if(!empty($renewalDuration)) {
+            if(is_numeric($renewalDuration)){
+                $this->_renewalDuration = $renewalDuration;
+            }else{
+                throw new DoverunnerTokenException(1015);
             }
         }
     }
@@ -66,6 +91,9 @@ class PlaybackPolicyRequest {
         $arr= [];
         if(isset($this->_persistent)){
             $arr["persistent"] = $this->_persistent;
+        }
+        if(isset($this->_allowedTrackTypes)){
+            $arr["allowed_track_types"] = $this->_allowedTrackTypes;
         }
         if(isset($this->_licenseDuration)){
             $arr["license_duration"] = $this->_licenseDuration;
@@ -79,8 +107,11 @@ class PlaybackPolicyRequest {
         if(isset($this->_playbackDuration)){
             $arr["playback_duration"] = $this->_playbackDuration;
         }
-        if(isset($this->_allowedTrackTypes)){
-            $arr["allowed_track_types"] = $this->_allowedTrackTypes;
+        if(isset($this->_maxStreamPerUser)){
+            $arr["max_stream_per_user"] = $this->_maxStreamPerUser;
+        }
+        if(isset($this->_renewalDuration)){
+            $arr["renewal_duration"] = $this->_renewalDuration;
         }
         return $arr;
     }
@@ -149,7 +180,21 @@ class PlaybackPolicyRequest {
         $this->_allowedTrackTypes = $allowedTrackTypes;
     }
 
+    /**
+     * @return int|string
+     */
+    public function getRentalDuration()
+    {
+        return $this->_rentalDuration;
+    }
 
+    /**
+     * @param int|string $rentalDuration
+     */
+    public function setRentalDuration($rentalDuration)
+    {
+        $this->_rentalDuration = $rentalDuration;
+    }
 
 }
 ?>

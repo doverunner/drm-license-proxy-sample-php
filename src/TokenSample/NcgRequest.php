@@ -1,7 +1,7 @@
 <?php
-namespace PallyCon;
+namespace Doverunner;
 
-use PallyCon\Exception\PallyConTokenException;
+use Doverunner\Exception\DoverunnerTokenException;
 
 class NcgRequest
 {
@@ -12,7 +12,7 @@ class NcgRequest
         if(preg_match('/[[:xdigit:]]{64}/', $cek)){
             $this->_cek=$cek;
         }else{
-            throw new PallyConTokenException(1047);
+            throw new DoverunnerTokenException(1047);
         }
     }
 

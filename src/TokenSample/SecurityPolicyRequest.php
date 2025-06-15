@@ -1,10 +1,8 @@
 <?php
 
 
-namespace PallyCon;
+namespace Doverunner;
 
-
-use PallyCon\Exception\PallyConTokenException;
 
 class SecurityPolicyRequest
 {
@@ -13,12 +11,14 @@ class SecurityPolicyRequest
     public $_playready;
     public $_fairplay;
     public $_ncg;
+    public $_wiseplay;
 
     public function __construct($trackType="ALL"
                         , SecurityPolicyWidevine $securityPolicyWidevine=null
                         , SecurityPolicyPlayReady $securityPolicyPlayReady=null
                         , SecurityPolicyFairPlay $securityPolicyFairPlay=null
-                        , SecurityPolicyNcg $securityPolicyNcg=null)
+                        , SecurityPolicyNcg $securityPolicyNcg=null
+                        , SecurityPolicyWiseplay $securityPolicyWiseplay=null)
     {
         $this->_trackType = $trackType;
         if(!empty($securityPolicyWidevine)){
@@ -32,6 +32,9 @@ class SecurityPolicyRequest
         }
         if(!empty($securityPolicyNcg)){
             $this->_ncg = $securityPolicyNcg;
+        }
+        if(!empty($securityPolicyWiseplay)){
+            $this->_wiseplay = $securityPolicyWiseplay;
         }
     }
 
@@ -51,6 +54,9 @@ class SecurityPolicyRequest
         }
         if(isset($this->_ncg)){
             $arr["ncg"] = $this->_ncg->toArray();
+        }
+        if(isset($this->_wiseplay)){
+            $arr["wiseplay"] = $this->_wiseplay->toArray();
         }
 
         return $arr;
@@ -134,5 +140,21 @@ class SecurityPolicyRequest
     public function setNcg($ncg)
     {
         $this->_ncg = $ncg;
+    }
+
+    /**
+     * @return SecurityPolicyWiseplay
+     */
+    public function getWiseplay()
+    {
+        return $this->_wiseplay;
+    }
+
+    /**
+     * @param SecurityPolicyWiseplay $wiseplay
+     */
+    public function setWiseplay($wiseplay)
+    {
+        $this->_wiseplay = $wiseplay;
     }
 }

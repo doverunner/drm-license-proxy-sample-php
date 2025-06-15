@@ -1,32 +1,38 @@
 <?php
-namespace PallyCon;
+namespace Doverunner;
 
-use PallyCon\Exception\PallyConTokenException;
+use Doverunner\Exception\DoverunnerTokenException;
 
 class HlsAesRequest
 {
-    private $_trackType;
+    private $_trackType = "ALL";
     private $_key;
     private $_iv;
+    private $_keyId;
 
     /**
      * HlsAesRequest constructor.
      * @param string $trackType
      * @param $key
      * @param $iv
-     * @throws PallyConTokenException
+     * @param $keyId
+     * @throws DoverunnerTokenException
      */
-    public function __construct($trackType="ALL", $key, $iv)
+    public function __construct($trackType, $keyId, $key, $iv)
     {
         if(!$this->checkHex32($key)){
-            throw new PallyConTokenException(1044);
+            throw new DoverunnerTokenException(1044);
         }
         if(!$this->checkHex32($iv)){
-            throw new PallyConTokenException(1045);
+            throw new DoverunnerTokenException(1045);
+        }
+        if(!$this->checkHex32($keyId)){
+            throw new DoverunnerTokenException(1046);
         }
         $this->_trackType = $trackType;
         $this->_key = $key;
         $this->_iv = $iv;
+        $this->_keyId = $keyId;
 
     }
 
@@ -43,6 +49,9 @@ class HlsAesRequest
         }
         if(isset($this->_iv)){
             $arr["iv"] = $this->_iv;
+        }
+        if(isset($this->_keyId)){
+            $arr["key_id"] = $this->_keyId;
         }
         return $arr;
     }

@@ -1,9 +1,9 @@
 <?php
 
-namespace PallyCon;
+namespace Doverunner;
 
 
-use PallyCon\Exception\PallyConTokenException;
+use Doverunner\Exception\DoverunnerTokenException;
 
 class SecurityPolicyPlayReady
 {
@@ -12,46 +12,56 @@ class SecurityPolicyPlayReady
     public $_analogVideoProtectionLevel;
     public $_digitalAudioProtectionLevel;
     public $_requireHdcpType1;
-
+    public $_enableLicenseCipher;
 
     public function __construct($securityLevel=150
                                     , $digitalVideoProtectionLevel=null
                                     , $analogVideoProtectionLevel=null
                                     , $digitalAudioProtectionLevel=null
-                                    , $requireHdcpType1= null)
+                                    , $requireHdcpType1= null
+                                    , $enableLicenseCipher = false)
     {
         if(is_numeric($securityLevel)){
             $this->_securityLevel = $securityLevel;
         }else{
-            throw new PallyConTokenException(1027);
+            throw new DoverunnerTokenException(1027);
         }
         if(!empty($digitalVideoProtectionLevel)) {
             if (is_numeric($digitalVideoProtectionLevel)) {
                 $this->_digitalVideoProtectionLevel = $digitalVideoProtectionLevel;
             } else {
-                throw new PallyConTokenException(1028);
+                throw new DoverunnerTokenException(1028);
             }
         }
         if(!empty($analogVideoProtectionLevel)) {
             if (is_numeric($analogVideoProtectionLevel)) {
                 $this->_analogVideoProtectionLevel = $analogVideoProtectionLevel;
             } else {
-                throw new PallyConTokenException(1029);
+                throw new DoverunnerTokenException(1029);
             }
         }
         if(!empty($digitalAudioProtectionLevel)) {
             if (is_numeric($digitalAudioProtectionLevel)) {
                 $this->_digitalAudioProtectionLevel = $digitalAudioProtectionLevel;
             } else {
-                throw new PallyConTokenException(1030);
+                throw new DoverunnerTokenException(1030);
             }
         }
         if(!empty($requireHdcpType1)) {
             if (is_bool($requireHdcpType1)) {
                 $this->_requireHdcpType1 = $requireHdcpType1;
             } else {
-                throw new PallyConTokenException(1032);
+                throw new DoverunnerTokenException(1032);
             }
+        }
+        if(!empty($enableLicenseCipher)) {
+            if (is_bool($enableLicenseCipher)) {
+                $this->_enableLicenseCipher = $enableLicenseCipher;
+            } else {
+                throw new DoverunnerTokenException(1031);
+            }
+        } else {
+            $this->_enableLicenseCipher = false; // Default value
         }
     }
 
@@ -72,6 +82,9 @@ class SecurityPolicyPlayReady
         }
         if (isset($this->_requireHdcpType1)) {
             $arr["require_hdcp_type1"] = $this->_requireHdcpType1;
+        }
+        if (isset($this->_enableLicenseCipher)) {
+            $arr["enable_license_cipher"] = $this->_enableLicenseCipher;
         }
 
         return $arr;
@@ -157,5 +170,21 @@ class SecurityPolicyPlayReady
     public function setRequireHdcpType1($requireHdcpType1)
     {
         $this->_requireHdcpType1 = $requireHdcpType1;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isEnableLicenseCipher()
+    {
+        return $this->_enableLicenseCipher;
+    }
+
+    /**
+     * @param bool $enableLicenseCipher
+     */
+    public function setEnableLicenseCipher($enableLicenseCipher)
+    {
+        $this->_enableLicenseCipher = $enableLicenseCipher;
     }
 }

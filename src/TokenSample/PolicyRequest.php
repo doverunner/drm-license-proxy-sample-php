@@ -1,6 +1,6 @@
 <?php
 
-namespace PallyCon;
+namespace Doverunner;
 
 
 class PolicyRequest

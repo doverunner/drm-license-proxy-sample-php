@@ -1,6 +1,6 @@
 # drm-token-proxy-sample-php
 
-PallyCon Token Proxy Sample PHP Project
+Doverunner Token Proxy Sample PHP Project
 
 ## Getting started
 - [한국어](doc/README.ko.md)
