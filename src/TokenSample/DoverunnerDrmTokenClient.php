@@ -1,14 +1,13 @@
 <?php
-namespace PallyCon;
+namespace Doverunner;
 
-require "PallyConDrmToken.php";
+require "DoverunnerDrmToken.php";
 
-use PallyCon\PolicyRequest;
-use PallyCon\Exception\PallyConTokenException;
+use Doverunner\Exception\DoverunnerTokenException;
 
 define("IV","0123456789abcdef");
 
-class PallyConDrmTokenClient implements PallyConDrmToken {
+class DoverunnerDrmTokenClient implements DoverunnerDrmToken {
 
     private $_drmType = "PlayReady";
     private $_policy;
@@ -42,6 +41,10 @@ class PallyConDrmTokenClient implements PallyConDrmToken {
     }
     public function ncg(){
         $this->_drmType = "NCG";
+        return $this;
+    }
+    public function wiseplay(){
+        $this->_drmType = "Wiseplay";
         return $this;
     }
     public function policy(PolicyRequest $policyRequest){
@@ -132,7 +135,7 @@ class PallyConDrmTokenClient implements PallyConDrmToken {
                 , "key_rotation"=> $this->_keyRotation
             ]));
             return $result;
-        } catch (PallyConTokenException $e){
+        } catch (DoverunnerTokenException $e){
             throw $e;
         }
     }
@@ -168,27 +171,27 @@ class PallyConDrmTokenClient implements PallyConDrmToken {
     }
 
     /**
-     * @throws PallyConTokenException
+     * @throws DoverunnerTokenException
      */
     private function checkValidation()
     {
         if(empty($this->_userId)){
-            throw new PallyConTokenException(1000);
+            throw new DoverunnerTokenException(1000);
         }
         if(empty($this->_cid)){
-            throw new PallyConTokenException(1001);
+            throw new DoverunnerTokenException(1001);
         }
         if(empty($this->_siteId)){
-            throw new PallyConTokenException(1002);
+            throw new DoverunnerTokenException(1002);
         }
         if(empty($this->_accessKey)){
-            throw new PallyConTokenException(1003);
+            throw new DoverunnerTokenException(1003);
         }
         if(empty($this->_siteKey)){
-            throw new PallyConTokenException(1004);
+            throw new DoverunnerTokenException(1004);
         }
         if(empty($this->_policy)){
-            throw new PallyConTokenException(1005);
+            throw new DoverunnerTokenException(1005);
         }
     }
 

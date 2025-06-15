@@ -1,9 +1,9 @@
 <?php
-namespace PallyCon\Exception;
+namespace Doverunner\Exception;
 
 use Exception;
 
-class PallyConTokenException extends Exception{
+class DoverunnerTokenException extends Exception{
     private $_errorCode;
 
     public function __construct($code = 0, Exception $previous = null) {

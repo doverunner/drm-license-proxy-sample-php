@@ -1,8 +1,8 @@
 <?php
-namespace PallyCon;
+namespace Doverunner;
 
 
-interface PallyConDrmToken
+interface DoverunnerDrmToken
 {
     public function playready();
     public function widevine();

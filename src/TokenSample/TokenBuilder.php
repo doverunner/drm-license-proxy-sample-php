@@ -1,10 +1,5 @@
 <?php
-namespace PallyCon;
-use PallyCon\ExternalKeyRequest;
-use PallyCon\PlaybackPolicyRequest;
-use PallyCon\PolicyRequest;
-use PallyCon\SecurityPolicyRequest;
-use PallyCon\Exception\PallyConTokenException;
+namespace Doverunner;
 
 class TokenBuilder
 {

@@ -1,9 +1,9 @@
 <?php
-namespace PallyConProxy\Common;
+namespace DoverunnerProxy\Common;
 
 /**
  * Class Util
- * @package PallyConProxy\Common
+ * @package DoverunnerProxy\Common
  */
 class Util{
 

@@ -1,9 +1,9 @@
 <?php
 
-namespace PallyCon;
+namespace Doverunner;
 
 
-use PallyCon\Exception\PallyConTokenException;
+use Doverunner\Exception\DoverunnerTokenException;
 
 class SecurityPolicyNcg
 {
@@ -17,21 +17,21 @@ class SecurityPolicyNcg
             if (is_bool($allowMobileAbnormalDevice)) {
                 $this->_allowMobileAbnormalDevice = $allowMobileAbnormalDevice;
             } else {
-                throw new PallyConTokenException(1036);
+                throw new DoverunnerTokenException(1036);
             }
         }
         if (!is_null($allowMobileAbnormalDevice)) {
             if (is_bool($allowExternalDisplay)) {
                 $this->_allowExternalDisplay = $allowExternalDisplay;
             } else {
-                throw new PallyConTokenException(1037);
+                throw new DoverunnerTokenException(1037);
             }
         }
         if (!empty($controlHdcp)) {
             if (is_numeric($controlHdcp)) {
                 $this->_controlHdcp = $controlHdcp;
             } else {
-                throw new PallyConTokenException(1038);
+                throw new DoverunnerTokenException(1038);
             }
         }
     }
