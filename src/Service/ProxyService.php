@@ -28,14 +28,14 @@ class ProxyService{
     }
 
 
-    public function getLicenseData($_mode, $_pallyconClientMeta, $_requestBody, $_drmType){
+    public function getLicenseData($_mode, $_doverunnerClientMeta, $_requestBody, $_drmType){
         $_responseData = null;
 
         // Token creation
-        $_pallyconCustomData = $this->createPallyConCustomData($_drmType);
+        $_doverunnerCustomData = $this->createDoverunnerCustomData($_drmType);
 
         // license server
-        $_licenseResponse = $this->callLicenseServer($_mode, $this->_config['license_url'], $_requestBody, $_pallyconCustomData, $_drmType, $_pallyconClientMeta);
+        $_licenseResponse = $this->callLicenseServer($_mode, $this->_config['license_url'], $_requestBody, $_doverunnerCustomData, $_drmType, $_doverunnerClientMeta);
 
         // response data
         $_responseData = $this->checkResponseData($_licenseResponse, $_drmType);
@@ -77,7 +77,7 @@ class ProxyService{
      * @return string
      * @throws \Doverunner\Exception\DoverunnerTokenException
      */
-    private function createPallyConCustomData($_drmType){
+    private function createDoverunnerCustomData($_drmType){
         $_siteKey = $this->_config['siteKey'];
         $_accessKey = $this->_config['accessKey'];
         $_siteId = $this->_config['siteId'];
@@ -151,12 +151,12 @@ class ProxyService{
      * @param $_mode
      * @param $_url
      * @param $_requestBody
-     * @param $_pallyconCustomData
+     * @param $_doverunnerCustomData
      * @param $_drmType
      * @return string
      * @throws DoverunnerProxyException
      */
-    private function callLicenseServer($_mode, $_url, $_requestBody, $_pallyconCustomData, $_drmType, $_pallyconClientMeta){
+    private function callLicenseServer($_mode, $_url, $_requestBody, $_doverunnerCustomData, $_drmType, $_doverunnerClientMeta){
 
         $_handle = curl_init();
         $_headerData = array();
@@ -165,7 +165,7 @@ class ProxyService{
             $_modeParam = "";
             if ($_mode != null && $_mode == "getserverinfo" ){
                 $_modeParam = "?mode=getserverinfo";
-                $_pallyconCustomData = null;
+                $_doverunnerCustomData = null;
             }
 
             curl_setopt($_handle, CURLOPT_URL, $_url."".$_modeParam);
@@ -196,12 +196,12 @@ class ProxyService{
                 array_push($_headerData, "Content-Type: application/octet-stream");
             }
 
-            if ( $_pallyconCustomData != null && $_pallyconCustomData != "" ) {
-                array_push($_headerData, "pallycon-customdata-v2: " . $_pallyconCustomData);
+            if ( $_doverunnerCustomData != null && $_doverunnerCustomData != "" ) {
+                array_push($_headerData, "doverunner-customdata-v2: " . $_doverunnerCustomData);
             }
 
-            if ( $_pallyconClientMeta != null && $_pallyconClientMeta != "" ) {
-                array_push($_headerData, "pallycon-client-meta: " . $_pallyconClientMeta);
+            if ( $_doverunnerClientMeta != null && $_doverunnerClientMeta != "" ) {
+                array_push($_headerData, "doverunner-client-meta: " . $_doverunnerClientMeta);
             }
 
             curl_setopt($_handle, CURLOPT_HTTPHEADER, $_headerData);

@@ -19,7 +19,7 @@
 - siteId=> {Doverunner Site Key}
 - siteKey=> {Doverunner Access Key}
 - siteid=> {Doverunner Site ID}
-- license_url=> https://license.pallycon.com/ri/licenseManager.do
+- license_url=> https://license.doverunner.com/ri/licenseManager.do
 
 ### Options for Response types
 
@@ -55,7 +55,7 @@ proxy_response_format=>[original|json]
 
 ## TODO
 
-1. For testing, you need to update the `TODO` items in the `createPallyConCustomdata` method.
+1. For testing, you need to update the `TODO` items in the `createDoverunnerCustomdata` method.
 
    - [PHP](../src/Service/ProxyService.php)
    - [Config](../src/Config/Config.php)
@@ -68,7 +68,7 @@ proxy_response_format=>[original|json]
 3. Specify the policy to be used using `new DoverunnerDrmTokenClient()`
 
 
-4. The device information header `pallycon-client-meta` allows you to receive information from the client. ( Doverunner SDK sends it by default. )
+4. The device information header `doverunner-client-meta` allows you to receive information from the client. ( Doverunner SDK sends it by default. )
 - Original Value String : `ewoJImRldmljZV9pbmZvIjogewoJCSJkZXZpY2VfbW9kZWwiOiAiaVBob25lIFNFIChpUGhvbmU4LDQpIiwKCQkib3NfdmVyc2lvbiI6IjE1LjcuMiIKCX0KfQ==`
 - Base64 Decoding :
 ```JSON
