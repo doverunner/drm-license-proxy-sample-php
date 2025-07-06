@@ -18,7 +18,7 @@
 - siteId=> {Doverunner Site Key}
 - siteKey=> {Doverunner Access Key}
 - siteid=> {Doverunner Site ID}
-- license_url=> https://license.doverunner.com/ri/licenseManager.do
+- license_url=> https://drm-license-seoul.doverunner.com/ri/licenseManager.do
 
 
 
@@ -57,7 +57,7 @@ proxy_response_format=>[original|json]
 
 ## TODO
 
-1. 테스트를 위해서는 기본 설정 완료 후 `createDoverunnerCustomdata` 메소드의 `TODO` 사항들을 업데이트해야 합니다.
+1. 테스트를 위해서는 기본 설정 완료 후 `createPallyconCustomData` 메소드의 `TODO` 사항들을 업데이트해야 합니다.
 
    - [PHP](../src/Service/ProxyService.php)
    - [Config](../src/Config/Config.php)
@@ -69,7 +69,7 @@ proxy_response_format=>[original|json]
 3. 사용하고자 하는 Policy를 `new DoverunnerDrmTokenClient()` 를 사용하여 지정한다.
 
 
-4. 디바이스 정보 Header `doverunner-client-meta` 를 통해 Client의 정보를 받을수 있다. ( Doverunner SDK에서는 기본으로 보내줌. )
+4. 디바이스 정보 Header `pallycon-client-meta` 를 통해 Client의 정보를 받을수 있다. ( Doverunner SDK에서는 기본으로 보내줌. )
 - Original Value String : `ewoJImRldmljZV9pbmZvIjogewoJCSJkZXZpY2VfbW9kZWwiOiAiaVBob25lIFNFIChpUGhvbmU4LDQpIiwKCQkib3NfdmVyc2lvbiI6IjE1LjcuMiIKCX0KfQ==`
 - Base64 Decoding :
 ```JSON

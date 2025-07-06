@@ -10,7 +10,7 @@ $proxyService = new ProxyService();
 
 // get Header
 $_headers = apache_request_headers();
-$_doverunnerClientMeta = @$_headers["doverunner-client-meta"];
+$_pallyconClientMeta = @$_headers["pallycon-client-meta"];
 
 // get Parameter
 $_requestBody = file_get_contents("php://input");   // get raw data
@@ -21,7 +21,7 @@ $drmType = new \DoverunnerProxy\Common\DrmType();
 if (strtoupper($_drmType) == $drmType::CLEARKEY) {
     $_responseData = $proxyService->getClearKeyLicense($_drmType);
 } else {
-    $_responseData = $proxyService->getLicenseData($_mode, $_doverunnerClientMeta, $_requestBody, $_drmType);
+    $_responseData = $proxyService->getLicenseData($_mode, $_pallyconClientMeta, $_requestBody, $_drmType);
 }
 // get License data
 
