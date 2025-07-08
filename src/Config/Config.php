@@ -8,5 +8,3 @@ return [
     'token_res_format' => 'original',
     'proxy_response_format' => 'original',
 ];
-
-
