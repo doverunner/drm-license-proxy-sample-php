@@ -16,21 +16,21 @@
 - You need to configure the below values to run the sample project.
 
 
-- siteId=> {Doverunner Site Key}
-- siteKey=> {Doverunner Access Key}
-- siteid=> {Doverunner Site ID}
+- siteId=> {DoveRunner Site Key}
+- siteKey=> {DoveRunner Access Key}
+- siteid=> {DoveRunner Site ID}
 - license_url=> https://drm-license-seoul.doverunner.com/ri/licenseManager.do
 
 ### Options for Response types
 
-You can set the type of license response that the Doverunner license server will send to the proxy server and the type of response that the proxy server will send to the client as follows.
+You can set the type of license response that the DoveRunner license server will send to the proxy server and the type of response that the proxy server will send to the client as follows.
 
 ```
 token_res_format=>[original|json]
 proxy_response_format=>[original|json]
 ```
 
-- doverunner.token.response.format: Set the license response type of Doverunner license server
+- doverunner.token.response.format: Set the license response type of DoveRunner license server
   - original: basic license information only (same as the response of v1.0 spec)
   - json: responds in JSON type with additional information such as Device ID
 
@@ -65,10 +65,10 @@ proxy_response_format=>[original|json]
 - Different companies have different encryption methods, so we don't provide separate guides.
 
 
-3. Specify the policy to be used using `new DoverunnerDrmTokenClient()`
+3. Specify the policy to be used using `new DoveRunnerDrmTokenClient()`
 
 
-4. The device information header `pallycon-client-meta` allows you to receive information from the client. ( Doverunner SDK sends it by default. )
+4. The device information header `pallycon-client-meta` allows you to receive information from the client. ( DoveRunner SDK sends it by default. )
 - Original Value String : `ewoJImRldmljZV9pbmZvIjogewoJCSJkZXZpY2VfbW9kZWwiOiAiaVBob25lIFNFIChpUGhvbmU4LDQpIiwKCQkib3NfdmVyc2lvbiI6IjE1LjcuMiIKCX0KfQ==`
 - Base64 Decoding :
 ```JSON
@@ -84,4 +84,4 @@ proxy_response_format=>[original|json]
 
 https://doverunner.com | mkt@doverunner.com
 
-Copyright 2025 Doverunner. All Rights Reserved.
+Copyright 2025 DoveRunner. All Rights Reserved.

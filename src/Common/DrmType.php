@@ -1,9 +1,9 @@
 <?php
-namespace DoverunnerProxy\Common;
+namespace DoveRunnerProxy\Common;
 
 /**
  * Class DrmType
- * @package DoverunnerProxy\Common
+ * @package DoveRunnerProxy\Common
  */
 class DrmType{
     const WIDEVINE = 'WIDEVINE';

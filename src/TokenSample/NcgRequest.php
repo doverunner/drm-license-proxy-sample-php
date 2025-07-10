@@ -1,7 +1,7 @@
 <?php
-namespace Doverunner;
+namespace DoveRunner;
 
-use Doverunner\Exception\DoverunnerTokenException;
+use DoveRunner\Exception\DoveRunnerTokenException;
 
 class NcgRequest
 {
@@ -12,7 +12,7 @@ class NcgRequest
         if(preg_match('/[[:xdigit:]]{64}/', $cek)){
             $this->_cek=$cek;
         }else{
-            throw new DoverunnerTokenException(1047);
+            throw new DoveRunnerTokenException(1047);
         }
     }
 

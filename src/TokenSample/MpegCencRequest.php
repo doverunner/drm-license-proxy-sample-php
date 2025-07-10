@@ -1,7 +1,7 @@
 <?php
-namespace Doverunner;
+namespace DoveRunner;
 
-use Doverunner\Exception\DoverunnerTokenException;
+use DoveRunner\Exception\DoveRunnerTokenException;
 
 class MpegCencRequest
 {
@@ -14,10 +14,10 @@ class MpegCencRequest
     {
         $this->_trackType = $trackType;
         if(!$this->checkHex32($keyId)){
-            throw new DoverunnerTokenException(1040);
+            throw new DoveRunnerTokenException(1040);
         }
         if(!$this->checkHex32($key)){
-            throw new DoverunnerTokenException(1041);
+            throw new DoveRunnerTokenException(1041);
         }
 
         $this->_keyId = $keyId;
@@ -27,7 +27,7 @@ class MpegCencRequest
             if($this->checkHex32($keyId)){
                 $this->_iv = $iv;
             }else{
-                throw new DoverunnerTokenException(1042);
+                throw new DoveRunnerTokenException(1042);
             }
         }
     }

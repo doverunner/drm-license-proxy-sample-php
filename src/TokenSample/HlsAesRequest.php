@@ -1,7 +1,7 @@
 <?php
-namespace Doverunner;
+namespace DoveRunner;
 
-use Doverunner\Exception\DoverunnerTokenException;
+use DoveRunner\Exception\DoveRunnerTokenException;
 
 class HlsAesRequest
 {
@@ -16,18 +16,18 @@ class HlsAesRequest
      * @param $key
      * @param $iv
      * @param $keyId
-     * @throws DoverunnerTokenException
+     * @throws DoveRunnerTokenException
      */
     public function __construct($trackType, $keyId, $key, $iv)
     {
         if(!$this->checkHex32($key)){
-            throw new DoverunnerTokenException(1044);
+            throw new DoveRunnerTokenException(1044);
         }
         if(!$this->checkHex32($iv)){
-            throw new DoverunnerTokenException(1045);
+            throw new DoveRunnerTokenException(1045);
         }
         if(!$this->checkHex32($keyId)){
-            throw new DoverunnerTokenException(1046);
+            throw new DoveRunnerTokenException(1046);
         }
         $this->_trackType = $trackType;
         $this->_key = $key;

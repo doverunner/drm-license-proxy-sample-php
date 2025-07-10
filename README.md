@@ -1,6 +1,6 @@
-# drm-token-proxy-sample-php
+# DoveRunner License Proxy Sample - PHP (v3.0)
 
-Doverunner Token Proxy Sample PHP Project
+DoveRunner Token Proxy Sample PHP Project
 
 ## Getting started
 - [한국어](doc/README.ko.md)

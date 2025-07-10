@@ -1,13 +1,13 @@
 <?php
-namespace Doverunner;
+namespace DoveRunner;
 
-require "DoverunnerDrmToken.php";
+require "DoveRunnerDrmToken.php";
 
-use Doverunner\Exception\DoverunnerTokenException;
+use DoveRunner\Exception\DoveRunnerTokenException;
 
 define("IV","0123456789abcdef");
 
-class DoverunnerDrmTokenClient implements DoverunnerDrmToken {
+class DoveRunnerDrmTokenClient implements DoveRunnerDrmToken {
 
     private $_drmType = "PlayReady";
     private $_policy;
@@ -135,7 +135,7 @@ class DoverunnerDrmTokenClient implements DoverunnerDrmToken {
                 , "key_rotation"=> $this->_keyRotation
             ]));
             return $result;
-        } catch (DoverunnerTokenException $e){
+        } catch (DoveRunnerTokenException $e){
             throw $e;
         }
     }
@@ -171,27 +171,27 @@ class DoverunnerDrmTokenClient implements DoverunnerDrmToken {
     }
 
     /**
-     * @throws DoverunnerTokenException
+     * @throws DoveRunnerTokenException
      */
     private function checkValidation()
     {
         if(empty($this->_userId)){
-            throw new DoverunnerTokenException(1000);
+            throw new DoveRunnerTokenException(1000);
         }
         if(empty($this->_cid)){
-            throw new DoverunnerTokenException(1001);
+            throw new DoveRunnerTokenException(1001);
         }
         if(empty($this->_siteId)){
-            throw new DoverunnerTokenException(1002);
+            throw new DoveRunnerTokenException(1002);
         }
         if(empty($this->_accessKey)){
-            throw new DoverunnerTokenException(1003);
+            throw new DoveRunnerTokenException(1003);
         }
         if(empty($this->_siteKey)){
-            throw new DoverunnerTokenException(1004);
+            throw new DoveRunnerTokenException(1004);
         }
         if(empty($this->_policy)){
-            throw new DoverunnerTokenException(1005);
+            throw new DoveRunnerTokenException(1005);
         }
     }
 

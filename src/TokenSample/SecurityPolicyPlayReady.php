@@ -1,9 +1,9 @@
 <?php
 
-namespace Doverunner;
+namespace DoveRunner;
 
 
-use Doverunner\Exception\DoverunnerTokenException;
+use DoveRunner\Exception\DoveRunnerTokenException;
 
 class SecurityPolicyPlayReady
 {
@@ -24,41 +24,41 @@ class SecurityPolicyPlayReady
         if(is_numeric($securityLevel)){
             $this->_securityLevel = $securityLevel;
         }else{
-            throw new DoverunnerTokenException(1027);
+            throw new DoveRunnerTokenException(1027);
         }
         if(!empty($digitalVideoProtectionLevel)) {
             if (is_numeric($digitalVideoProtectionLevel)) {
                 $this->_digitalVideoProtectionLevel = $digitalVideoProtectionLevel;
             } else {
-                throw new DoverunnerTokenException(1028);
+                throw new DoveRunnerTokenException(1028);
             }
         }
         if(!empty($analogVideoProtectionLevel)) {
             if (is_numeric($analogVideoProtectionLevel)) {
                 $this->_analogVideoProtectionLevel = $analogVideoProtectionLevel;
             } else {
-                throw new DoverunnerTokenException(1029);
+                throw new DoveRunnerTokenException(1029);
             }
         }
         if(!empty($digitalAudioProtectionLevel)) {
             if (is_numeric($digitalAudioProtectionLevel)) {
                 $this->_digitalAudioProtectionLevel = $digitalAudioProtectionLevel;
             } else {
-                throw new DoverunnerTokenException(1030);
+                throw new DoveRunnerTokenException(1030);
             }
         }
         if(!empty($requireHdcpType1)) {
             if (is_bool($requireHdcpType1)) {
                 $this->_requireHdcpType1 = $requireHdcpType1;
             } else {
-                throw new DoverunnerTokenException(1032);
+                throw new DoveRunnerTokenException(1032);
             }
         }
         if(!empty($enableLicenseCipher)) {
             if (is_bool($enableLicenseCipher)) {
                 $this->_enableLicenseCipher = $enableLicenseCipher;
             } else {
-                throw new DoverunnerTokenException(1031);
+                throw new DoveRunnerTokenException(1031);
             }
         } else {
             $this->_enableLicenseCipher = false; // Default value

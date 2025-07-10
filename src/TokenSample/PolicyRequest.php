@@ -1,6 +1,6 @@
 <?php
 
-namespace Doverunner;
+namespace DoveRunner;
 
 
 class PolicyRequest

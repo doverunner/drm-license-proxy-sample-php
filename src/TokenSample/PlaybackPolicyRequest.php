@@ -1,9 +1,9 @@
 <?php
 
-namespace Doverunner;
+namespace DoveRunner;
 
 
-use Doverunner\Exception\DoverunnerTokenException;
+use DoveRunner\Exception\DoveRunnerTokenException;
 
 class PlaybackPolicyRequest {
     public $_limit;
@@ -25,7 +25,7 @@ class PlaybackPolicyRequest {
      * @param int $playbackDuration
      * @param $maxStreamPerUser
      * @param $renewalDuration
-     * @throws DoverunnerTokenException
+     * @throws DoveRunnerTokenException
      */
     public function __construct($persistent=false, $licenseDuration=0, $expireDate= "", int $rentalDuration=0, int $playbackDuration=0, $maxStreamPerUser="", $renewalDuration=0, $allowedTrackTypes="ALL")
     {
@@ -33,56 +33,56 @@ class PlaybackPolicyRequest {
             if(is_bool($persistent)){
                 $this->_persistent = $persistent;
             }else{
-                throw new DoverunnerTokenException(1009);
+                throw new DoveRunnerTokenException(1009);
             }
         }
         if(!is_null($licenseDuration)) {
             if(is_numeric($licenseDuration)){
                 $this->_licenseDuration = $licenseDuration;
             }else{
-                throw new DoverunnerTokenException(1010);
+                throw new DoveRunnerTokenException(1010);
             }
         }
         if(!empty($expireDate)) {
             if(preg_match('/[0-9]{4}-[0,1][0-9]-[0-5][0-9]T[0-2][0-9]:[0-5][0-9]:[0-5][0-9]Z/', $expireDate)){
                 $this->_expireDate = $expireDate;
             }else{
-                throw new DoverunnerTokenException(1011);
+                throw new DoveRunnerTokenException(1011);
             }
         }
         if(!is_null($rentalDuration)) {
             if(is_numeric($rentalDuration)){
                 $this->_rentalDuration = $rentalDuration;
             }else{
-                throw new DoverunnerTokenException(1017);
+                throw new DoveRunnerTokenException(1017);
             }
         }
         if(!is_null($playbackDuration)) {
             if(is_numeric($playbackDuration)){
                 $this->_playbackDuration = $playbackDuration;
             }else{
-                throw new DoverunnerTokenException(1016);
+                throw new DoveRunnerTokenException(1016);
             }
         }
         if(!empty($allowedTrackTypes)) {
             if(is_string($allowedTrackTypes)){
                 $this->_allowedTrackTypes = $allowedTrackTypes;
             }else{
-                throw new DoverunnerTokenException(1013);
+                throw new DoveRunnerTokenException(1013);
             }
         }
         if(!empty($maxStreamPerUser)) {
             if(is_numeric($maxStreamPerUser)){
                 $this->_maxStreamPerUser = $maxStreamPerUser;
             }else{
-                throw new DoverunnerTokenException(1014);
+                throw new DoveRunnerTokenException(1014);
             }
         }
         if(!empty($renewalDuration)) {
             if(is_numeric($renewalDuration)){
                 $this->_renewalDuration = $renewalDuration;
             }else{
-                throw new DoverunnerTokenException(1015);
+                throw new DoveRunnerTokenException(1015);
             }
         }
     }

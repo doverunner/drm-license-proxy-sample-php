@@ -1,17 +1,17 @@
 <?php
-namespace DoverunnerProxy\Service;
+namespace DoveRunnerProxy\Service;
 
-use Doverunner\DoverunnerDrmTokenClient;
-use Doverunner\PlaybackPolicyRequest;
-use Doverunner\TokenBuilder;
-use DoverunnerProxy\Common\DrmType;
-use DoverunnerProxy\Common\Util;
-use DoverunnerProxy\Exception\DoverunnerProxyException;
+use DoveRunner\DoveRunnerDrmTokenClient;
+use DoveRunner\PlaybackPolicyRequest;
+use DoveRunner\TokenBuilder;
+use DoveRunnerProxy\Common\DrmType;
+use DoveRunnerProxy\Common\Util;
+use DoveRunnerProxy\Exception\DoveRunnerProxyException;
 
 
 /**
  * Class ProxyService
- * @package DoverunnerProxy\Service
+ * @package DoveRunnerProxy\Service
  *
  */
 class ProxyService{
@@ -44,7 +44,7 @@ class ProxyService{
     }
 
     /**
-     * @throws DoverunnerProxyException
+     * @throws DoveRunnerProxyException
      */
     public function getClearKeyLicense($_drmType) {
 
@@ -53,7 +53,7 @@ class ProxyService{
         $cid = "palmulti"; // 필요시 변경 가능
 
         if (!$licenseServerUrl || !$siteId) {
-            throw new DoverunnerProxyException(9002);
+            throw new DoveRunnerProxyException(9002);
         }
 
         // URL 생성
@@ -75,7 +75,7 @@ class ProxyService{
      *
      * @param $_drmType
      * @return string
-     * @throws \Doverunner\Exception\DoverunnerTokenException
+     * @throws \DoveRunner\Exception\DoveRunnerTokenException
      */
     private function createPallyconCustomData($_drmType){
         $_siteKey = $this->_config['siteKey'];
@@ -88,8 +88,8 @@ class ProxyService{
 
 
         // Token client
-        $_DoverunnerDrmTokenClient = new DoverunnerDrmTokenClient();
-        $pallyConTokenClient =  $_DoverunnerDrmTokenClient
+        $_DoveRunnerDrmTokenClient = new DoveRunnerDrmTokenClient();
+        $pallyConTokenClient =  $_DoveRunnerDrmTokenClient
                                     ->siteKey($_siteKey)
                                     ->accessKey($_accessKey)
                                     ->siteId($_siteId)
@@ -127,7 +127,7 @@ class ProxyService{
 
 
         //TODO 3.
-        // create DoverunnerDrmTokenPolicy
+        // create DoveRunnerDrmTokenPolicy
         // Set the created playbackpolicy, securitypolicy, and externalkey.
         $policyRequest = (new TokenBuilder)
             ->playbackPolicy($playbackPolicyRequest)
@@ -154,7 +154,7 @@ class ProxyService{
      * @param $_pallyconCustomData
      * @param $_drmType
      * @return string
-     * @throws DoverunnerProxyException
+     * @throws DoveRunnerProxyException
      */
     private function callLicenseServer($_mode, $_url, $_requestBody, $_pallyconCustomData, $_drmType, $_pallyconClientMeta){
 
@@ -176,7 +176,7 @@ class ProxyService{
             curl_setopt($_handle, CURLOPT_FRESH_CONNECT, true);
             curl_setopt($_handle, CURLOPT_CONNECTTIMEOUT, 5);
 
-            $drmType = new \DoverunnerProxy\Common\DrmType();
+            $drmType = new \DoveRunnerProxy\Common\DrmType();
             if ($_mode != null && $_mode == "getserverinfo" ||  strtoupper($_drmType) == $drmType::CLEARKEY){
                 curl_setopt($_handle, CURLOPT_POST, false);
             }else {
@@ -215,7 +215,7 @@ class ProxyService{
             return $_responseData;
 
         } catch (Exception $e){
-            throw new DoverunnerProxyException(9001);
+            throw new DoveRunnerProxyException(9001);
         } finally{
             curl_close($_handle);
         }

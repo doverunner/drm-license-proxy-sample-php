@@ -1,10 +1,10 @@
 <?php
-namespace DoverunnerProxy;
+namespace DoveRunnerProxy;
 
 include_once("Common/AutoLoad.php");
 include_once("Common/CorsConfig.php");
 
-use DoverunnerProxy\Service\ProxyService;
+use DoveRunnerProxy\Service\ProxyService;
 
 $proxyService = new ProxyService();
 
@@ -17,7 +17,7 @@ $_requestBody = file_get_contents("php://input");   // get raw data
 $_drmType = $_REQUEST["drmType"];
 $_mode = @$_REQUEST["mode"];
 
-$drmType = new \DoverunnerProxy\Common\DrmType();
+$drmType = new \DoveRunnerProxy\Common\DrmType();
 if (strtoupper($_drmType) == $drmType::CLEARKEY) {
     $_responseData = $proxyService->getClearKeyLicense($_drmType);
 } else {

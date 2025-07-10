@@ -1,9 +1,9 @@
 <?php
 
-namespace Doverunner;
+namespace DoveRunner;
 
 
-use Doverunner\Exception\DoverunnerTokenException;
+use DoveRunner\Exception\DoveRunnerTokenException;
 
 class SecurityPolicyFairplay
 {
@@ -17,21 +17,21 @@ class SecurityPolicyFairplay
             if(is_numeric($hdcpEnforcement)){
                 $this->_hdcpEnforcement = $hdcpEnforcement;
             }else{
-                throw new DoverunnerTokenException(1033);
+                throw new DoveRunnerTokenException(1033);
             }
         }
         if(!is_null($allowAirplay)) {
             if (is_bool($allowAirplay)) {
                 $this->_allowAirplay = $allowAirplay;
             } else {
-                throw new DoverunnerTokenException(1034);
+                throw new DoveRunnerTokenException(1034);
             }
         }
         if(!is_null($allowAvAdapter)) {
             if (is_bool($allowAvAdapter)) {
                 $this->_allowAvAdapter = $allowAvAdapter;
             } else {
-                throw new DoverunnerTokenException(1035);
+                throw new DoveRunnerTokenException(1035);
             }
         }
     }

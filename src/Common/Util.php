@@ -1,9 +1,9 @@
 <?php
-namespace DoverunnerProxy\Common;
+namespace DoveRunnerProxy\Common;
 
 /**
  * Class Util
- * @package DoverunnerProxy\Common
+ * @package DoveRunnerProxy\Common
  */
 class Util{
 

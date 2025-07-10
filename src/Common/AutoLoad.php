@@ -8,13 +8,13 @@ spl_autoload_register(function ($className) {
     // src/까지 올라가려면 한 단계 위로 이동해야 함.
     $srcDir = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR; // → .../src/
 
-    // 처리할 DoverunnerProxy 하위 폴더 목록 (공통/Common, 예외/Exception, 서비스/Service)
+    // 처리할 DoveRunnerProxy 하위 폴더 목록 (공통/Common, 예외/Exception, 서비스/Service)
     $proxyDirs = ['Common', 'Exception', 'Service'];
 
-    // 1) DoverunnerProxy\ 네임스페이스 처리
-    $proxyPrefix = 'DoverunnerProxy\\';
+    // 1) DoveRunnerProxy\ 네임스페이스 처리
+    $proxyPrefix = 'DoveRunnerProxy\\';
     if (strncmp($proxyPrefix, $className, strlen($proxyPrefix)) === 0) {
-        // “DoverunnerProxy\Common\Util” 같은 형태에서 “Common\Util” 부분을 얻음
+        // “DoveRunnerProxy\Common\Util” 같은 형태에서 “Common\Util” 부분을 얻음
         $relativeClass = substr($className, strlen($proxyPrefix));
         // 최상위 하위 폴더명(예: Common, Exception, Service)과 나머지 클래스로 분리
         $parts = explode('\\', $relativeClass, 2);
@@ -34,12 +34,12 @@ spl_autoload_register(function ($className) {
         return;
     }
 
-    // 2) Doverunner\ 네임스페이스 처리 → TokenSample 폴더 내부 클래스 로드
-    $doverunnerPrefix = 'Doverunner\\';
+    // 2) DoveRunner\ 네임스페이스 처리 → TokenSample 폴더 내부 클래스 로드
+    $doverunnerPrefix = 'DoveRunner\\';
     if (strncmp($doverunnerPrefix, $className, strlen($doverunnerPrefix)) === 0) {
-        // “Doverunner\DoverunnerDrmTokenClient” → “DoverunnerDrmTokenClient”
+        // “DoveRunner\DoveRunnerDrmTokenClient” → “DoveRunnerDrmTokenClient”
         $relativeClass = substr($className, strlen($doverunnerPrefix));
-        // 토큰샘플 경로 예: .../src/TokenSample/DoverunnerDrmTokenClient.php
+        // 토큰샘플 경로 예: .../src/TokenSample/DoveRunnerDrmTokenClient.php
         $file = $srcDir
             . 'TokenSample' . DIRECTORY_SEPARATOR
             . str_replace('\\', DIRECTORY_SEPARATOR, $relativeClass) . '.php';

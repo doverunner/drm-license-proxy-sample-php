@@ -15,23 +15,23 @@
 - [Config.php](../src/Config/Config.php)
 - 샘플 프로젝트를 실행하려면 아래와 같은 값들을 설정해야 합니다.
 
-- siteId=> {Doverunner Site Key}
-- siteKey=> {Doverunner Access Key}
-- siteid=> {Doverunner Site ID}
+- siteId=> {DoveRunner Site Key}
+- siteKey=> {DoveRunner Access Key}
+- siteid=> {DoveRunner Site ID}
 - license_url=> https://drm-license-seoul.doverunner.com/ri/licenseManager.do
 
 
 
 ### 응답 유형에 대한 옵션
 
-Doverunner 라이선스 서버에서 Proxy 서버에 보내줄 라이선스 응답의 유형과 Proxy 서버에서 클라이언트에 보내줄 응답의 유형을 다음과 같이 설정할 수 있습니다.
+DoveRunner 라이선스 서버에서 Proxy 서버에 보내줄 라이선스 응답의 유형과 Proxy 서버에서 클라이언트에 보내줄 응답의 유형을 다음과 같이 설정할 수 있습니다.
 
 ```
 token_res_format=>[original|json]
 proxy_response_format=>[original|json]
 ```
 
-- token_res_format : Doverunner 라이선스 서버의 license response 유형 설정
+- token_res_format : DoveRunner 라이선스 서버의 license response 유형 설정
     - original: 기본적인 라이선스 정보만 응답
     - json: 라이선스 정보와 Device ID 등의 추가 정보가 포함된 JSON type으로 응답
 
@@ -66,10 +66,10 @@ proxy_response_format=>[original|json]
     - 회사 마다 암호화 방식이 다르므로 별도로 가이드를 제공하지는 않습니다.
 
 
-3. 사용하고자 하는 Policy를 `new DoverunnerDrmTokenClient()` 를 사용하여 지정한다.
+3. 사용하고자 하는 Policy를 `new DoveRunnerDrmTokenClient()` 를 사용하여 지정한다.
 
 
-4. 디바이스 정보 Header `pallycon-client-meta` 를 통해 Client의 정보를 받을수 있다. ( Doverunner SDK에서는 기본으로 보내줌. )
+4. 디바이스 정보 Header `pallycon-client-meta` 를 통해 Client의 정보를 받을수 있다. ( DoveRunner SDK에서는 기본으로 보내줌. )
 - Original Value String : `ewoJImRldmljZV9pbmZvIjogewoJCSJkZXZpY2VfbW9kZWwiOiAiaVBob25lIFNFIChpUGhvbmU4LDQpIiwKCQkib3NfdmVyc2lvbiI6IjE1LjcuMiIKCX0KfQ==`
 - Base64 Decoding :
 ```JSON
@@ -85,6 +85,6 @@ proxy_response_format=>[original|json]
 
 https://doverunner.com | mkt@doverunner.com
 
-Copyright 2025 Doverunner. All Rights Reserved.
+Copyright 2025 DoveRunner. All Rights Reserved.
 
     
