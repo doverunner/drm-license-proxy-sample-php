@@ -1,17 +1,17 @@
 <?php
-namespace PallyConProxy\Service;
+namespace DoveRunnerProxy\Service;
 
-use PallyCon\PallyConDrmTokenClient;
-use PallyCon\PlaybackPolicyRequest;
-use PallyCon\TokenBuilder;
-use PallyConProxy\Common\DrmType;
-use PallyConProxy\Common\Util;
-use PallyConProxy\Exception\PallyConProxyException;
+use DoveRunner\DoveRunnerDrmTokenClient;
+use DoveRunner\PlaybackPolicyRequest;
+use DoveRunner\TokenBuilder;
+use DoveRunnerProxy\Common\DrmType;
+use DoveRunnerProxy\Common\Util;
+use DoveRunnerProxy\Exception\DoveRunnerProxyException;
 
 
 /**
  * Class ProxyService
- * @package PallyConProxy\Service
+ * @package DoveRunnerProxy\Service
  *
  */
 class ProxyService{
@@ -24,7 +24,7 @@ class ProxyService{
 
 
     public function __construct() {
-        $this->_config = include "Config/Config.php";
+        $this->_config = include __DIR__ . '/../Config/Config.php';
     }
 
 
@@ -32,7 +32,7 @@ class ProxyService{
         $_responseData = null;
 
         // Token creation
-        $_pallyconCustomData = $this->createPallyConCustomData($_drmType);
+        $_pallyconCustomData = $this->createPallyconCustomData($_drmType);
 
         // license server
         $_licenseResponse = $this->callLicenseServer($_mode, $this->_config['license_url'], $_requestBody, $_pallyconCustomData, $_drmType, $_pallyconClientMeta);
@@ -43,15 +43,41 @@ class ProxyService{
         return $_responseData;
     }
 
+    /**
+     * @throws DoveRunnerProxyException
+     */
+    public function getClearKeyLicense($_drmType) {
+
+        $licenseServerUrl = $this->_config['clearKey_license_url'] ?? null;
+        $siteId = $this->_config['siteId'] ?? null;
+        $cid = "palmulti"; // 필요시 변경 가능
+
+        if (!$licenseServerUrl || !$siteId) {
+            throw new DoveRunnerProxyException(9002);
+        }
+
+        // URL 생성
+        $url = sprintf("%s?siteId=%s&cid=%s", $licenseServerUrl, $siteId, $cid);
+
+        // callLicenseServer를 GET 방식으로 호출
+        return $this->callLicenseServer(
+            null,
+            $url,
+            null,
+            null,
+            $_drmType,
+            null
+        );
+    }
 
     /**
      * Token creation
      *
      * @param $_drmType
      * @return string
-     * @throws \PallyCon\Exception\PallyConTokenException
+     * @throws \DoveRunner\Exception\DoveRunnerTokenException
      */
-    private function createPallyConCustomData($_drmType){
+    private function createPallyconCustomData($_drmType){
         $_siteKey = $this->_config['siteKey'];
         $_accessKey = $this->_config['accessKey'];
         $_siteId = $this->_config['siteId'];
@@ -62,12 +88,12 @@ class ProxyService{
 
 
         // Token client
-        $_PallyConDrmTokenClient = new PallyConDrmTokenClient();
-        $pallyConTokenClient =  $_PallyConDrmTokenClient
-            ->siteKey($_siteKey)
-            ->accessKey($_accessKey)
-            ->siteId($_siteId)
-            ->responseFormat($_tokenResponseFormat);
+        $_DoveRunnerDrmTokenClient = new DoveRunnerDrmTokenClient();
+        $pallyConTokenClient =  $_DoveRunnerDrmTokenClient
+                                    ->siteKey($_siteKey)
+                                    ->accessKey($_accessKey)
+                                    ->siteId($_siteId)
+                                    ->responseFormat($_tokenResponseFormat);
 
 
         $drmType = new DrmType();
@@ -77,6 +103,8 @@ class ProxyService{
             $pallyConTokenClient->widevine();
         }else if ( strtoupper($_drmType) == $drmType::NCG ) {
             $pallyConTokenClient->ncg();
+        }else if ( strtoupper($_drmType) == $drmType::WISEPLAY ) {
+            $pallyConTokenClient->wiseplay();
         }else {
             $pallyConTokenClient->playready();
         }
@@ -93,13 +121,13 @@ class ProxyService{
 
         //TODO 2.
         // Create license rule
-        // https://pallycon.com/docs/en/multidrm/license/license-token/#license-policy-json
+        // https://doverunner.com/docs/en/multidrm/license/license-token/#license-policy-json
         // this sample rule : limit 3600 seconds license.
         $playbackPolicyRequest = new PlaybackPolicyRequest(true, 600);
 
 
         //TODO 3.
-        // create PallyConDrmTokenPolicy
+        // create DoveRunnerDrmTokenPolicy
         // Set the created playbackpolicy, securitypolicy, and externalkey.
         $policyRequest = (new TokenBuilder)
             ->playbackPolicy($playbackPolicyRequest)
@@ -126,7 +154,7 @@ class ProxyService{
      * @param $_pallyconCustomData
      * @param $_drmType
      * @return string
-     * @throws PallyConProxyException
+     * @throws DoveRunnerProxyException
      */
     private function callLicenseServer($_mode, $_url, $_requestBody, $_pallyconCustomData, $_drmType, $_pallyconClientMeta){
 
@@ -148,7 +176,8 @@ class ProxyService{
             curl_setopt($_handle, CURLOPT_FRESH_CONNECT, true);
             curl_setopt($_handle, CURLOPT_CONNECTTIMEOUT, 5);
 
-            if ($_mode != null && $_mode == "getserverinfo" ){
+            $drmType = new \DoveRunnerProxy\Common\DrmType();
+            if ($_mode != null && $_mode == "getserverinfo" ||  strtoupper($_drmType) == $drmType::CLEARKEY){
                 curl_setopt($_handle, CURLOPT_POST, false);
             }else {
                 curl_setopt($_handle, CURLOPT_POST, true);
@@ -159,9 +188,10 @@ class ProxyService{
             if ( strtoupper($_drmType) == $drmType::FAIRPLAY ){
                 array_push($_headerData, "Content-Type: application/x-www-form-urlencoded");
 
-            }else if ( strtoupper($_drmType) == $drmType::NCG ){
+            }else if ( strtoupper($_drmType) == $drmType::NCG ) {
                 array_push($_headerData, "Content-Type: application/x-www-form-urlencoded");
-
+            }else if ( strtoupper($_drmType) == $drmType::WISEPLAY ) {
+                array_push($_headerData, "Content-Type: application/json");
             }else{
                 array_push($_headerData, "Content-Type: application/octet-stream");
             }
@@ -185,7 +215,7 @@ class ProxyService{
             return $_responseData;
 
         } catch (Exception $e){
-            throw new PallyConProxyException(9001);
+            throw new DoveRunnerProxyException(9001);
         } finally{
             curl_close($_handle);
         }

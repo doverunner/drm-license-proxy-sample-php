@@ -1,9 +1,9 @@
 <?php
 
-namespace PallyCon;
+namespace DoveRunner;
 
 
-use PallyCon\Exception\PallyConTokenException;
+use DoveRunner\Exception\DoveRunnerTokenException;
 
 class SecurityPolicyFairplay
 {
@@ -17,21 +17,21 @@ class SecurityPolicyFairplay
             if(is_numeric($hdcpEnforcement)){
                 $this->_hdcpEnforcement = $hdcpEnforcement;
             }else{
-                throw new PallyConTokenException(1033);
+                throw new DoveRunnerTokenException(1033);
             }
         }
         if(!is_null($allowAirplay)) {
             if (is_bool($allowAirplay)) {
                 $this->_allowAirplay = $allowAirplay;
             } else {
-                throw new PallyConTokenException(1034);
+                throw new DoveRunnerTokenException(1034);
             }
         }
         if(!is_null($allowAvAdapter)) {
             if (is_bool($allowAvAdapter)) {
                 $this->_allowAvAdapter = $allowAvAdapter;
             } else {
-                throw new PallyConTokenException(1035);
+                throw new DoveRunnerTokenException(1035);
             }
         }
     }

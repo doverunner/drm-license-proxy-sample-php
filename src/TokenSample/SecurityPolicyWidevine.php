@@ -1,9 +1,9 @@
 <?php
 
-namespace PallyCon;
+namespace DoveRunner;
 
 
-use PallyCon\Exception\PallyConTokenException;
+use DoveRunner\Exception\DoveRunnerTokenException;
 
 class SecurityPolicyWidevine
 {
@@ -13,14 +13,16 @@ class SecurityPolicyWidevine
     public $_disableAnalogOutput;
     public $_hdcpSrmRule;
     public $_overrideDeviceRevocation;
+    public $_enableLicenseCipher;
+    public $_allowTestDevice;
 
     public function __construct($securityLevel=1, $requiredHdcpVersion=null
-        , $requiredCgmsFlags=null, $disableAnalogOutput=null, $hdcpSrmRule=null, $overrideDeviceRevocation=false)
+        , $requiredCgmsFlags=null, $disableAnalogOutput=null, $hdcpSrmRule=null, $overrideDeviceRevocation=false, $enableLicenseCipher=false, $allowTestDevice=true)
     {
         if(is_numeric($securityLevel)){
             $this->_securityLevel = $securityLevel;
         }else{
-            throw new PallyConTokenException(1022);
+            throw new DoveRunnerTokenException(1022);
         }
         if(!empty($requiredHdcpVersion)){
             $this->_requiredHdcpVersion = $requiredHdcpVersion;
@@ -36,6 +38,14 @@ class SecurityPolicyWidevine
         }
         if(!empty($overrideDeviceRevocation)){
             $this->_overrideDeviceRevocation = $overrideDeviceRevocation;
+        }
+        if(!empty($enableLicenseCipher)){
+            $this->_enableLicenseCipher = $enableLicenseCipher;
+        }
+        if(!empty($allowTestDevice)){
+            $this->_allowTestDevice = $allowTestDevice;
+        }else{
+            throw new DoveRunnerTokenException(1023);
         }
     }
 
@@ -59,6 +69,12 @@ class SecurityPolicyWidevine
         }
         if (isset($this->_overrideDeviceRevocation)) {
             $arr["override_device_revocation"] = $this->_overrideDeviceRevocation;
+        }
+        if (isset($this->_enableLicenseCipher)) {
+            $arr["enable_license_cipher"] = $this->_enableLicenseCipher;
+        }
+        if (isset($this->_allowTestDevice)) {
+            $arr["allow_test_device"] = $this->_allowTestDevice;
         }
 
         return $arr;
@@ -160,4 +176,27 @@ class SecurityPolicyWidevine
         $this->_overrideDeviceRevocation = $overrideDeviceRevocation;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getEnableLicenseCipher()
+    {
+        return $this->_enableLicenseCipher;
+    }
+
+    /**
+     * @param mixed $enableLicenseCipher
+     */
+    public function setEnableLicenseCipher($enableLicenseCipher)
+    {
+        $this->_enableLicenseCipher = $enableLicenseCipher;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAllowTestDevice()
+    {
+        return $this->_allowTestDevice;
+    }
   }

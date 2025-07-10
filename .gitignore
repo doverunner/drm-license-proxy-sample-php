@@ -4,6 +4,8 @@
 /.idea
 *.iml
 
+# composer vendor
+/vendor
 
 # config
 /tests/config/config.php

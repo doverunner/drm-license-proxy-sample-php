@@ -1,14 +1,15 @@
 <?php
-namespace PallyConProxy\Common;
+namespace DoveRunnerProxy\Common;
 
 /**
  * Class DrmType
- * @package PallyConProxy\Common
+ * @package DoveRunnerProxy\Common
  */
 class DrmType{
     const WIDEVINE = 'WIDEVINE';
     const PLAYREADY = 'PLAYREADY';
     const FAIRPLAY = 'FAIRPLAY';
     const NCG = 'NCG';
-
+    const WISEPLAY = 'WISEPLAY';
+    const CLEARKEY = 'CLEARKEY';
 }

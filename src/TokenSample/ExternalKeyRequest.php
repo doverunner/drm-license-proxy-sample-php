@@ -1,10 +1,7 @@
 <?php
-namespace PallyCon;
+namespace DoveRunner;
 
-use PallyCon\Exception\PallyConTokenException;
-use PallyCon\HlsAesRequest;
-use PallyCon\MpegCencRequest;
-use PallyCon\NcgRequest;
+use DoveRunner\Exception\DoveRunnerTokenException;
 
 class ExternalKeyRequest
 {
@@ -61,7 +58,7 @@ class ExternalKeyRequest
     }
 
     /**
-     * @return array|\PallyCon\MpegCencRequest|null
+     * @return array|\DoveRunner\MpegCencRequest|null
      */
     public function getMpegCenc()
     {
@@ -69,14 +66,14 @@ class ExternalKeyRequest
     }
 
     /**
-     * @param array|\PallyCon\MpegCencRequest|null $mpegCenc
+     * @param array|\DoveRunner\MpegCencRequest|null $mpegCenc
      */
     public function setMpegCenc($mpegCenc)
     {
         if(is_array($mpegCenc)){
             $this->_mpegCenc = $mpegCenc;
         }else{
-            throw new PallyConTokenException(1019);
+            throw new DoveRunnerTokenException(1019);
         }
 
     }
@@ -86,7 +83,7 @@ class ExternalKeyRequest
     }
 
     /**
-     * @return array|\PallyCon\HlsAesRequest|null
+     * @return array|\DoveRunner\HlsAesRequest|null
      */
     public function getHlsAes()
     {
@@ -94,14 +91,14 @@ class ExternalKeyRequest
     }
 
     /**
-     * @param array|\PallyCon\HlsAesRequest|null $hlsAes
+     * @param array|\DoveRunner\HlsAesRequest|null $hlsAes
      */
     public function setHlsAes($hlsAes)
     {
         if(is_array($hlsAes)){
             $this->_hlsAes = $hlsAes;
         }else{
-            throw new PallyConTokenException(1020);
+            throw new DoveRunnerTokenException(1020);
         }
     }
 
@@ -110,7 +107,7 @@ class ExternalKeyRequest
     }
 
     /**
-     * @return array|\PallyCon\NcgRequest|null
+     * @return array|\DoveRunner\NcgRequest|null
      */
     public function getNcg()
     {
@@ -118,7 +115,7 @@ class ExternalKeyRequest
     }
 
     /**
-     * @param array|\PallyCon\NcgRequest|null $ncg
+     * @param array|\DoveRunner\NcgRequest|null $ncg
      */
     public function setNcg(NcgRequest $ncg)
     {
